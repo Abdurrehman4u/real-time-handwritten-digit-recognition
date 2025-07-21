@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwritten Digit Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Handwritten Digit Recognition</h1>
+        <h3>Upload an Image or Draw a Digit</h3>
+        
+        <div class="upload-section">
+            <input type="file" id="imageUpload" accept="image/*">
+            <button id="uploadBtn">Upload & Predict</button>
+        </div>
+        
+        <div class="main-content">
+            <div class="canvas-section">
+                <h4>Draw a Digit:</h4>
+                <canvas id="drawingCanvas" width="280" height="280"></canvas>
+                <div class="canvas-controls">
+                    <button id="predictBtn">Predict Now</button>
+                    <button id="clearBtn" class="clear-btn">Clear Canvas</button>
+                </div>
+            </div>
+            
+            <div class="image-section">
+                <h4>Input Image:</h4>
+                <div class="image-container">
+                    <img id="inputImage" src="" alt="Input Image" style="display:none;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="result-section">
+            <h2>Predicted Digit: <span id="predictedDigit">-</span></h2>
+            <h3>Confidence: <span id="confidenceScore">-</span></h3>
+            <p class="prediction-id">Prediction ID: <span id="predictionId">-</span></p>
+        </div>
+        
+        <div class="history-section">
+            <button id="viewHistoryBtn">View Prediction History</button>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

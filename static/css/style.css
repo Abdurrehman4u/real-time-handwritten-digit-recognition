@@ -1,0 +1,264 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+h3 {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+h4 {
+    color: #444;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+    border: 3px solid #333;
+    border-radius: 8px;
+    background-color: black;
+    cursor: crosshair;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.upload-section {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.upload-section input[type="file"] {
+    margin: 10px;
+    padding: 8px;
+    border: 2px dashed #007bff;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.main-content {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.canvas-section {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+
+.image-section {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+
+.image-container {
+    width: 280px;
+    height: 280px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    margin: 0 auto;
+}
+
+.image-container img {
+    max-width: 270px;
+    max-height: 270px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.canvas-controls {
+    margin-top: 15px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.clear-btn {
+    background-color: #dc3545;
+}
+
+.clear-btn:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.result-section {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e8f5e8;
+    border-radius: 8px;
+    border-left: 5px solid #28a745;
+}
+
+.result-section h2 {
+    color: #155724;
+    margin: 0;
+    font-size: 28px;
+}
+
+.result-section h3 {
+    color: #007bff;
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.prediction-id {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.history-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+#historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#historyTable th {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#historyTable td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 13px;
+}
+
+#historyTable tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#historyTable tr:hover {
+    background-color: #e3f2fd;
+}
+
+.history-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.input-type-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: white;
+}
+
+.input-type-upload {
+    background-color: #28a745;
+}
+
+.input-type-canvas {
+    background-color: #17a2b8;
+}
+
+.predicted-digit {
+    font-weight: bold;
+    font-size: 18px;
+    color: #007bff;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .canvas-section, .image-section {
+        min-width: auto;
+    }
+    
+    canvas {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .image-container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    #historyTable {
+        font-size: 12px;
+    }
+    
+    #historyTable th,
+    #historyTable td {
+        padding: 8px 4px;
+    }
+    
+    .history-image {
+        width: 40px;
+        height: 40px;
+    }
+}
