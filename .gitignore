@@ -1,0 +1,5 @@
+# Ignore SQLite database
+database/*.db
+
+# Ignore contents of the uploads folder
+static/uploads/*

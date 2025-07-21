@@ -11,11 +11,9 @@ def init_db():
     conn = sqlite3.connect('database/predictions.db')
     cursor = conn.cursor()
     
-    # Drop existing table to recreate with correct schema
-    cursor.execute('DROP TABLE IF EXISTS predictions')
-    
+    # Create the table only if it doesn't already exist
     cursor.execute('''
-        CREATE TABLE predictions (
+        CREATE TABLE IF NOT EXISTS predictions (
             id TEXT PRIMARY KEY,
             input_type TEXT NOT NULL,
             predicted_digit INTEGER NOT NULL,
