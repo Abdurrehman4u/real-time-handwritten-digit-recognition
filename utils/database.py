@@ -16,7 +16,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS predictions (
             id TEXT PRIMARY KEY,
             input_type TEXT NOT NULL,
-            predicted_digit INTEGER NOT NULL,
+            predicted_digit TEXT NOT NULL,  -- Changed from INTEGER to TEXT to handle "Uncertain"
             confidence REAL NOT NULL,
             image_path TEXT,
             timestamp TEXT NOT NULL
@@ -34,19 +34,23 @@ def save_prediction(input_type, predicted_digit, confidence, image_path=None):
     prediction_id = str(uuid.uuid4())[:8]  # Short ID for display
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
-    # Ensure predicted_digit is an integer
-    predicted_digit = int(predicted_digit)
+    # Handle both integer digits and "Uncertain" string
+    if predicted_digit == "Uncertain":
+        predicted_digit_str = "Uncertain"
+    else:
+        predicted_digit_str = str(int(predicted_digit))
+    
     confidence = float(confidence)
     
     cursor.execute('''
         INSERT INTO predictions (id, input_type, predicted_digit, confidence, image_path, timestamp)
         VALUES (?, ?, ?, ?, ?, ?)
-    ''', (prediction_id, input_type, predicted_digit, confidence, image_path, timestamp))
+    ''', (prediction_id, input_type, predicted_digit_str, confidence, image_path, timestamp))
     
     conn.commit()
     conn.close()
     
-    print(f"Saved prediction - ID: {prediction_id}, Digit: {predicted_digit}, Confidence: {confidence}")
+    print(f"Saved prediction - ID: {prediction_id}, Digit: {predicted_digit_str}, Confidence: {confidence}")
     return prediction_id
 
 def get_predictions():

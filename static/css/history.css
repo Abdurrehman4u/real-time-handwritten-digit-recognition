@@ -23,7 +23,7 @@
 .stats-section {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 30px;
+    margin-bottom: 15px; /* Reduced from 30px */
     gap: 20px;
 }
 
@@ -65,7 +65,8 @@
     overflow-x: auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px; /* Reduced from 30px */
+    margin-top: 20px;
 }
 
 .history-table {
@@ -88,7 +89,7 @@
 }
 
 .history-table td {
-    padding: 12px;
+    padding: 5px;
     border-bottom: 1px solid #e9ecef;
     vertical-align: middle;
 }
@@ -131,14 +132,31 @@
 .predicted-digit {
     font-size: 24px;
     font-weight: bold;
-    color: #007bff;
-    background-color: #e3f2fd;
     padding: 8px 12px;
     border-radius: 50%;
     display: inline-block;
     min-width: 40px;
     height: 40px;
     line-height: 24px;
+    text-align: center;
+}
+
+/* Style for normal digit predictions */
+.predicted-digit:not(.uncertain) {
+    color: #007bff;
+    background-color: #e3f2fd;
+}
+
+/* Style for uncertain predictions */
+.predicted-digit.uncertain {
+    color: #dc3545;
+    background-color: #f8d7da;
+    font-size: 14px;
+    border-radius: 15px;
+    padding: 8px 16px;
+    min-width: 80px;
+    height: auto;
+    line-height: 1.2;
 }
 
 .confidence-cell {
@@ -236,12 +254,14 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
 }
-.card-heading{
+
+.card-heading {
     font-size: 18px;
     font-weight: 600;
     color: #f6f6f7;
     margin-bottom: 12px;
 }
+
 .modal-content {
     position: relative;
     background-color: #fefefe;
@@ -289,6 +309,7 @@
     
     .stats-section {
         flex-direction: column;
+        margin-bottom: 15px; /* Reduced for mobile */
     }
     
     .stat-card {

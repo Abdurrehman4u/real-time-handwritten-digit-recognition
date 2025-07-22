@@ -2,113 +2,110 @@
 <html lang="en">
 
 <head>
-       
-    <meta charset="UTF-8">
-       
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Prediction History - Handwritten Digit Recognition</title>
-       
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
-       
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History - Handwritten Digit Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
-        <div class="container">
-                <div class="header">
-                        <h1>Prediction History</h1>
-                        <a href="{{ url_for('index') }}" class="back-btn">← Back to Home</a>
-                    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Prediction History</h1>
+            <a href="{{ url_for('index') }}" class="back-btn">← Back to Home</a>
+        </div>
 
-                {% if error %}
-                    <div class="error-message">
-                            <p>{{ error }}</p>
-                        </div>
-                {% endif %}
+        {% if error %}
+        <div class="error-message">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
 
-                {% if predictions %}
-                    <div class="stats-section">
-                            <div class="stat-card stat-total">
-                                    <h3 class="card-heading">Total Predictions</h3>
-                                    <p class="stat-number">{{ predictions|length }}</p>
-                                </div>
-                            <div class="stat-card stat-canvas">
-                                    <h3 class="card-heading">Canvas Drawings</h3>
-                                    <p class="stat-number">{{ predictions|selectattr('1', 'equalto',
-                    'canvas')|list|length }}</p>
-                                </div>
-                            <div class="stat-card stat-upload">
-                                    <h3 class="card-heading">Uploaded Images</h3>
-                                    <p class="stat-number">{{ predictions|selectattr('1', 'equalto',
-                    'upload')|list|length }}</p>
-                                </div>
-                        </div>
+        {# Use - to strip whitespace around Jinja2 tags #}
+        {%- if predictions -%}
+        <div class="stats-section">
+            <div class="stat-card stat-total">
+                <h3 class="card-heading">Total Predictions</h3>
+                <p class="stat-number">{{ predictions|length }}</p>
+            </div>
+            <div class="stat-card stat-canvas">
+                <h3 class="card-heading">Canvas Drawings</h3>
+                <p class="stat-number">{{ predictions|selectattr('1', 'equalto','canvas')|list|length }}</p>
+            </div>
+            <div class="stat-card stat-upload">
+                <h3 class="card-heading">Uploaded Images</h3>
+                <p class="stat-number">{{ predictions|selectattr('1', 'equalto','upload')|list|length }}</p>
+            </div>
+        </div>
 
-                    <div class="table-container">
-                            <table class="history-table">
-                                    <thead>
-                                            <tr>
-                                                    <th>ID</th>
-                                                    <th>Input Type</th>
-                                                     <th>Timestamp</th>
-                                                     <th>Input Image</th>
-                                                    <th>Predicted Digit</th>
-                                                    <th>Confidence</th>
-                                                </tr>
-                                        </thead>
-                                    <tbody>
-                                            {% for prediction in predictions %}
-                                            <tr>
-                                                    <td class="id-cell">{{ prediction[0] }}</td>
-                                                    <td>
-                                                            <span
-                                class="input-type-badge input-type-{{ prediction[1] }}">
-                                                                    {{ prediction[1].upper() }}
-                                                                </span>
-                                                        </td>
-                                                     <td class="timestamp-cell">{{ prediction[5] }}</td>
-                        <td class="image-cell">
-                            {% if prediction[4] %}
-                            <img src="/{{ prediction[4] }}" alt="Prediction Image" class="preview-image"
-                                data-image="/{{ prediction[4] }}" data-digit="{{ prediction[2] }}" data-confidence="{{ "
-                                %.2f"|format(prediction[3]) }}"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <span class="no-image" style="display:none;">Image not found</span>
-                            {% else %}
-                            <span class="no-image">No Image</span>
-                            {% endif %}
-                        </td>
-                                                    <td class="digit-cell">
-                                                            <span class="predicted-digit">{{ prediction[2] }}</span>
-                                                        </td>
-                                                    <td class="confidence-cell">{{ "%.2f"|format(prediction[3]) }}%</td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                </table>
-                        </div>
-                {% else %}
-                    <div class="no-data">
-                            <h3>No predictions found</h3>
-                            <p>Start making predictions to see them here!</p>
-                            <a href="{{ url_for('index') }}" class="btn">Make First Prediction</a>
-                        </div>
-                {% endif %}
-            </div>
+        <div class="table-container">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Input Type</th>
+                        <th>Timestamp</th>
+                        <th>Input Image</th>
+                        <th>Predicted Digit</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in predictions %}
+                    <tr>
+                        <td class="id-cell">{{ prediction[0] }}</td>
+                        <td>
+                            <span class="input-type-badge input-type-{{ prediction[1] }}">
+                                {{ prediction[1].upper() }}
+                            </span>
+                        </td>
+                        <td class="timestamp-cell">{{ prediction[5] }}</td>
+                        <td class="image-cell">
+                            {% if prediction[4] %}
+                            <img src="/{{ prediction[4] }}" alt="Prediction Image" class="preview-image"
+                                data-image="/{{ prediction[4] }}" data-digit="{{ prediction[2] }}" data-confidence="{{ "
+                                %.2f"|format(prediction[3]) }}"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <span class="no-image" style="display:none;">Image not found</span>
+                            {% else %}
+                            <span class="no-image">No Image</span>
+                            {% endif %}
+                        </td>
+                        <td class="digit-cell">
+                            {% if prediction[2] == "Uncertain" %}
+                            <span class="predicted-digit uncertain">{{ prediction[2] }}</span>
+                            {% else %}
+                            <span class="predicted-digit">{{ prediction[2] }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="confidence-cell">{{ "%.2f"|format(prediction[3]) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {%- else -%}
+        <div class="no-data">
+            <h3>No predictions found</h3>
+            <p>Start making predictions to see them here!</p>
+            <a href="{{ url_for('index') }}" class="btn">Make First Prediction</a>
+        </div>
+        {%- endif -%}
+    </div>
 
-            <div id="imageModal" class="modal">
-                <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <img id="modalImage" src="" alt="Large view">
-                        <div class="modal-info">
-                                <h3>Predicted Digit: <span id="modalDigit"></span></h3>
-                                <p>Confidence: <span id="modalConfidence"></span>%</p>
-                            </div>
-                    </div>
-            </div>
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Large view">
+            <div class="modal-info">
+                <h3>Predicted Digit: <span id="modalDigit"></span></h3>
+                <p>Confidence: <span id="modalConfidence"></span>%</p>
+            </div>
+        </div>
+    </div>
 
-       
-    <script src="{{ url_for('static', filename='js/history.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/history.js') }}"></script>
 </body>
 
 </html>

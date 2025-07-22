@@ -15,5 +15,10 @@ def predict_digit(image, model):
     result = np.argmax(pred[0])
     confidence = float(np.max(pred[0]) * 100)  # Convert to percentage
 
-    print(f"Model prediction: {result}, Display result: {result}, Confidence: {confidence:.2f}%")
-    return int(result), confidence
+    # Check if confidence is below 90%
+    if confidence < 90.0:
+        print(f"Model prediction: {result}, Display result: Uncertain (confidence too low), Confidence: {confidence:.2f}%")
+        return "Uncertain", confidence
+    else:
+        print(f"Model prediction: {result}, Display result: {result}, Confidence: {confidence:.2f}%")
+        return int(result), confidence
